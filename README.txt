@@ -58,7 +58,7 @@ root@server:/home/sergio# vgs
 root@server:/home/sergio# vgrename ubuntu-vg ubuntu-otus
   Volume group "ubuntu-vg" successfully renamed to "ubuntu-otus"
 
-В /boot/grub/grub.cfg меняем старое название на новое. Но нозвания задаются по-другому, не так, как в выводе команды vgs. Автоматизируем вычисление новых названий и меняем grub.cfg:
+В /boot/grub/grub.cfg меняем старое название на новое. Но названия задаются по-другому, не так, как в выводе команды vgs. Автоматизируем вычисление новых названий и меняем grub.cfg:
 STALO=$(ls /dev/mapper | grep otus)
 BYLO=$(awk ' /root=\/dev\/mapper\//{print $3}' /boot/grub/grub.cfg | head -1 | sed 's/root=\/dev\/mapper\///g')
 sed -i 's/'$BYLO'/'$STALO'/g' /boot/grub/grub.cfg
